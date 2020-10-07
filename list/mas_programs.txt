@@ -1,0 +1,20 @@
+462054704 "Microsoft Word"
+462062816 "Microsoft PowerPoint"
+462058435 "Microsoft Excel"
+985367838 "Microsoft Outlook"
+784801555 "Microsoft OneNote"
+823766827 "Microsoft OneDrive"
+497799835 Xcode
+803453959 Slack
+747648890 Telegram
+424389933 "Final Cut Pro"
+634148309 "Logic Pro X"
+434290957 Motion
+424390742 Compressor
+869223134 KakaoTalk
+425424353 "The Unarchiver"
+409201541 Pages
+409203825 Numbers
+409183694 Keynote
+970610831 myHomework
+957734279 "Toggl Track"

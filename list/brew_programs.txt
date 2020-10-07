@@ -1,0 +1,7 @@
+mas
+git
+mosh
+gnu-units
+node
+tmux
+zsh-syntax-highlighting

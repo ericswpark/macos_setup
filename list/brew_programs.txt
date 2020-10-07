@@ -5,3 +5,4 @@ gnu-units
 node
 tmux
 zsh-syntax-highlighting
+openjdk

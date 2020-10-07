@@ -6,3 +6,4 @@ node
 tmux
 zsh-syntax-highlighting
 openjdk
+gnupg2

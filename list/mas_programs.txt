@@ -1,9 +1,3 @@
-462054704 "Microsoft Word"
-462062816 "Microsoft PowerPoint"
-462058435 "Microsoft Excel"
-985367838 "Microsoft Outlook"
-784801555 "Microsoft OneNote"
-823766827 "Microsoft OneDrive"
 497799835 Xcode
 803453959 Slack
 747648890 Telegram

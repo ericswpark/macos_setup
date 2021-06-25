@@ -17,4 +17,4 @@ keepingyouawake
 handbrake
 dozer
 logitech-options
-1password
+bitwarden

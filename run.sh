@@ -69,7 +69,7 @@ function mas_install {
 # --------
 
 # Check for flags
-while getopts "h?ebcm" option
+while getopts "h?ebm" option
 do
   case "$option" in
     h|\?)

@@ -3,14 +3,12 @@
 # If any part of this script fails, exit immediately
 set -e
 
-
 # Initialize variables
 local -i SHOW_HELP=0
 local -i SKIP_ESSENTIALS=0
 local -i SKIP_BREW=0
 local -i SKIP_BREW_CASK=0
 local -i SKIP_MAS=0
-
 
 # Usage
 function displayUsage {
@@ -30,7 +28,6 @@ Purpose:    Completely set up a fresh macOS install with specified tools
   -m        Skip mas app installation
 EOFFOE
 }
-
 
 # Check for flags
 while getopts "h?ebcm" option
@@ -60,7 +57,6 @@ do
       ;;
       esac
 done
-
 
 # Check if user wants help
 if (( SHOW_HELP )) then

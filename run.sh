@@ -124,9 +124,9 @@ fi
 
 # PART 2 - Install brew apps
 if ! (( SKIP_BREW )) then
-  while IFS= read -r line; do
+  while IFS= read -u 9 -r line; do
     brew_install $line
-  done < "list/brew_programs.txt"
+  done 9< "list/brew_programs.txt"
 else
   log_b "Skipping brew programs installation on request..."
 fi
@@ -140,9 +140,9 @@ if ! (( SKIP_MAS )) then
   log_m "Subsequent script runs will automatically find and download those apps from your purchase history."
 
   # Install mas apps
-  while IFS= read -r line; do
+  while IFS= read -u 9 -r line; do
     mas_install $(echo $line | tr -d '\n')
-  done < "list/mas_programs.txt"
+  done 9< "list/mas_programs.txt"
 
   # Warn about background mas
   log_m "Background app installation started!"

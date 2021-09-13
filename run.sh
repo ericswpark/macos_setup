@@ -152,6 +152,6 @@ if ! (( SKIP_MAS )) then
   log_m "To see download progress, go to the Launchpad."
   log_m "It is recommended that you do not restart the computer while the commands are running."
 else
-  log_m "Skipping brew cask programs installation on request..."
+  log_m "Skipping Mac App Store programs installation on request..."
 fi
 

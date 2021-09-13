@@ -63,35 +63,35 @@ fi
 if ! (( SKIP_ESSENTIALS )) then
   # Install homebrew (if it is not already installed)
   if ! type brew; then
-    echo "[INIT] Installing homebrew..."
+    echo "[ESSENTIALS] Installing homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   else
-    echo "[INIT] Homebrew already seems to be installed. Skipping..."
+    echo "[ESSENTIALS] Homebrew already seems to be installed. Skipping..."
   fi
 
 
   # Generate SSH keys (if not present)
   if [[ ! -a ~/.ssh/id_rsa ]]; then
-    echo "[INIT] Generating SSH key..."
+    echo "[ESSENTIALS] Generating SSH key..."
     ssh-keygen -t rsa
   else
-    echo "[INIT] SSH key found. Skipping..."
+    echo "[ESSENTIALS] SSH key found. Skipping..."
   fi
 else
-  echo "[INIT] Skipping essential install on request..."
+  echo "[ESSENTIALS] Skipping essential install on request..."
 fi
 
 # FUNCTION: install apps from brew
 # Usage: brew_install <package_name>
 function brew_install {
-  echo -e "[INIT] Installing $1..."
+  echo -e "[BREW] Installing $1..."
   brew install $1
 }
 
 # FUNCTION: install apps from mas
 # Usage: mas_install <app_id> <app_name (display only)>
 function mas_install {
-   echo -e "[INIT] Installing $2..."
+   echo -e "[MAS] Installing $2..."
    mas install $1 &
 }
 
@@ -101,16 +101,16 @@ if ! (( SKIP_BREW )) then
     brew_install $line
   done < "list/brew_programs.txt"
 else
-  echo "[INIT] Skipping brew programs installation on request..."
+  echo "[BREW] Skipping brew programs installation on request..."
 fi
 
 # PART 3 - Install MAS apps
 if ! (( SKIP_MAS )) then
   # Warning about mas
-  echo "[INIT] Starting installation of apps from the Mac App Store..."
-  echo "[INIT] WARNING: If this is your first time downloading these apps, installation will fail because there will be no purchase history."
-  echo "[INIT] It is therefore recommended that you first download the apps through the App Store."
-  echo "[INIT] Subsequent script runs will automatically find and download those apps from your purchase history."
+  echo "[MAS] Starting installation of apps from the Mac App Store..."
+  echo "[MAS] WARNING: If this is your first time downloading these apps, installation will fail because there will be no purchase history."
+  echo "[MAS] It is therefore recommended that you first download the apps through the App Store."
+  echo "[MAS] Subsequent script runs will automatically find and download those apps from your purchase history."
 
   # Install mas apps
   while IFS= read -r line; do
@@ -118,12 +118,12 @@ if ! (( SKIP_MAS )) then
   done < "list/mas_programs.txt"
 
   # Warn about background mas
-  echo "[INIT] Background app installation started!"
-  echo "[INIT] WARNING: mas is still installing apps in the background."
-  echo "[INIT] To see running processes, run ps."
-  echo "[INIT] To see download progress, go to the Launchpad."
-  echo "[INIT] It is recommended that you do not restart the computer while the commands are running."
+  echo "[MAS] Background app installation started!"
+  echo "[MAS] WARNING: mas is still installing apps in the background."
+  echo "[MAS] To see running processes, run ps."
+  echo "[MAS] To see download progress, go to the Launchpad."
+  echo "[MAS] It is recommended that you do not restart the computer while the commands are running."
 else
-  echo "[INIT] Skipping brew cask programs installation on request..."
+  echo "[MAS] Skipping brew cask programs installation on request..."
 fi
 

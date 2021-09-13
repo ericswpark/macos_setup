@@ -24,6 +24,5 @@ skype
 steam
 keepingyouawake
 handbrake
-dozer
 logitech-options
 bitwarden

@@ -12,7 +12,7 @@ local -i SKIP_MAS=0
 # FUNCTION: Usage display
 function displayUsage {
     cat <<'EOFFOE'
-Usage:      ./init-macos.sh     <flags>
+Usage:      ./run.sh    <flags>
 
 Purpose:    Completely set up a fresh macOS install with specified tools
 

@@ -9,7 +9,7 @@ local -i SKIP_ESSENTIALS=0
 local -i SKIP_BREW=0
 local -i SKIP_MAS=0
 
-# Usage
+# FUNCTION: Usage display
 function displayUsage {
     cat <<'EOFFOE'
 Usage:      ./init-macos.sh     <flags>
@@ -26,6 +26,24 @@ Purpose:    Completely set up a fresh macOS install with specified tools
   -m        Skip mas app installation
 EOFFOE
 }
+
+# FUNCTION: install apps from brew
+# Usage: brew_install <package_name>
+function brew_install {
+  echo -e "[BREW] Installing $1..."
+  brew install $1
+}
+
+# FUNCTION: install apps from mas
+# Usage: mas_install <app_id> <app_name (display only)>
+function mas_install {
+   echo -e "[MAS] Installing $2..."
+   mas install $1 &
+}
+
+# --------
+# | MAIN |
+# --------
 
 # Check for flags
 while getopts "h?ebcm" option
@@ -80,20 +98,6 @@ if ! (( SKIP_ESSENTIALS )) then
 else
   echo "[ESSENTIALS] Skipping essential install on request..."
 fi
-
-# FUNCTION: install apps from brew
-# Usage: brew_install <package_name>
-function brew_install {
-  echo -e "[BREW] Installing $1..."
-  brew install $1
-}
-
-# FUNCTION: install apps from mas
-# Usage: mas_install <app_id> <app_name (display only)>
-function mas_install {
-   echo -e "[MAS] Installing $2..."
-   mas install $1 &
-}
 
 # PART 2 - Install brew apps
 if ! (( SKIP_BREW )) then

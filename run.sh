@@ -27,18 +27,42 @@ Purpose:    Completely set up a fresh macOS install with specified tools
 EOFFOE
 }
 
+# FUNCTION: Logger
+# Usage: log <module_name> <log>
+function log {
+    echo -e "[$1] $2"
+}
+
+# FUNCTION: Essentials logger
+# Usage log_e <log>
+function log_e {
+    log "ESSENTIALS" $1
+}
+
+# FUNCTION: Brew logger
+# Usage log_b <log>
+function log_b {
+    log "BREW" $1
+}
+
+# FUNCTION: MAS logger
+# Usage log_m <log>
+function log_m {
+    log "MAS" $1
+}
+
 # FUNCTION: install apps from brew
 # Usage: brew_install <package_name>
 function brew_install {
-  echo -e "[BREW] Installing $1..."
+  log_b "Installing $1..."
   brew install $1
 }
 
 # FUNCTION: install apps from mas
 # Usage: mas_install <app_id> <app_name (display only)>
 function mas_install {
-   echo -e "[MAS] Installing $2..."
-   mas install $1 &
+    log_m "Installing $2..."
+    mas install $1 &
 }
 
 # --------
@@ -81,22 +105,22 @@ fi
 if ! (( SKIP_ESSENTIALS )) then
   # Install homebrew (if it is not already installed)
   if ! type brew; then
-    echo "[ESSENTIALS] Installing homebrew..."
+    log_e "Installing homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   else
-    echo "[ESSENTIALS] Homebrew already seems to be installed. Skipping..."
+    log_e "Homebrew already seems to be installed. Skipping..."
   fi
 
 
   # Generate SSH keys (if not present)
   if [[ ! -a ~/.ssh/id_rsa ]]; then
-    echo "[ESSENTIALS] Generating SSH key..."
+    log_e "Generating SSH key..."
     ssh-keygen -t rsa
   else
-    echo "[ESSENTIALS] SSH key found. Skipping..."
+    log_e "SSH key found. Skipping..."
   fi
 else
-  echo "[ESSENTIALS] Skipping essential install on request..."
+  log_e "Skipping essential install on request..."
 fi
 
 # PART 2 - Install brew apps
@@ -105,16 +129,16 @@ if ! (( SKIP_BREW )) then
     brew_install $line
   done < "list/brew_programs.txt"
 else
-  echo "[BREW] Skipping brew programs installation on request..."
+  log_b "Skipping brew programs installation on request..."
 fi
 
 # PART 3 - Install MAS apps
 if ! (( SKIP_MAS )) then
   # Warning about mas
-  echo "[MAS] Starting installation of apps from the Mac App Store..."
-  echo "[MAS] WARNING: If this is your first time downloading these apps, installation will fail because there will be no purchase history."
-  echo "[MAS] It is therefore recommended that you first download the apps through the App Store."
-  echo "[MAS] Subsequent script runs will automatically find and download those apps from your purchase history."
+  log_m "Starting installation of apps from the Mac App Store..."
+  log_m "WARNING: If this is your first time downloading these apps, installation will fail because there will be no purchase history."
+  log_m "It is therefore recommended that you first download the apps through the App Store."
+  log_m "Subsequent script runs will automatically find and download those apps from your purchase history."
 
   # Install mas apps
   while IFS= read -r line; do
@@ -122,12 +146,12 @@ if ! (( SKIP_MAS )) then
   done < "list/mas_programs.txt"
 
   # Warn about background mas
-  echo "[MAS] Background app installation started!"
-  echo "[MAS] WARNING: mas is still installing apps in the background."
-  echo "[MAS] To see running processes, run ps."
-  echo "[MAS] To see download progress, go to the Launchpad."
-  echo "[MAS] It is recommended that you do not restart the computer while the commands are running."
+  log_m "Background app installation started!"
+  log_m "WARNING: mas is still installing apps in the background."
+  log_m "To see running processes, run ps."
+  log_m "To see download progress, go to the Launchpad."
+  log_m "It is recommended that you do not restart the computer while the commands are running."
 else
-  echo "[MAS] Skipping brew cask programs installation on request..."
+  log_m "Skipping brew cask programs installation on request..."
 fi
 

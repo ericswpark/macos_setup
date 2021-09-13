@@ -1,11 +1,5 @@
 #!/bin/zsh
 
-# ------------------------------------------------
-# # macOS initialization script (for developers) #
-# #      Created by ideaman924 (Eric Park)       #
-# ------------------------------------------------
-
-
 # If any part of this script fails, exit immediately
 set -e
 

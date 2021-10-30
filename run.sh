@@ -157,8 +157,8 @@ if ! (( SKIP_BREW_CASK )) then
 
   # Install from cask list
   while IFS= read -u 9 -r line; do
-    brew_install $line
-  done 9< "list/brew_programs.txt"
+    brew_cask_install $line
+  done 9< "list/brew_cask_programs.txt"
 else
   log_c "Skipping brew cask programs installation on request..."
 fi

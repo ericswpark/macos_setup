@@ -17,3 +17,4 @@ keepingyouawake
 handbrake
 logitech-options
 bitwarden
+vlc

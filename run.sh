@@ -8,6 +8,7 @@ local -i SHOW_HELP=0
 local -i SKIP_ESSENTIALS=0
 local -i SKIP_BREW=0
 local -i SKIP_BREW_CASK=0
+local -i SKIP_BREW_DRIVERS=0
 local -i SKIP_MAS=0
 
 # FUNCTION: Usage display
@@ -24,6 +25,7 @@ Purpose:    Completely set up a fresh macOS install with specified tools
             installed, the rest of the modules will fail.
   -b        Skip brew app installation
   -c        Skip brew cask app installation
+  -d        Skip brew driver installation
   -m        Skip mas app installation
 EOFFOE
 }
@@ -52,6 +54,12 @@ function log_c {
     log "BREWCASK" $1
 }
 
+# FUNCTION: Brew driver logger
+# Usage log_d <log>
+function log_d {
+    log "BREWDRIVER" $1
+}
+
 # FUNCTION: MAS logger
 # Usage log_m <log>
 function log_m {
@@ -72,6 +80,13 @@ function brew_cask_install {
   brew install --cask $1
 }
 
+# FUNCTION: install drivers from brew
+# Usage: brew_driver_install <package_name>
+function brew_driver_install {
+  log_d "Installing $1..."
+  brew install $1
+}
+
 
 # FUNCTION: install apps from mas
 # Usage: mas_install <app_id> <app_name (display only)>
@@ -85,7 +100,7 @@ function mas_install {
 # --------
 
 # Check for flags
-while getopts "h?ebcm" option
+while getopts "h?ebcdm" option
 do
   case "$option" in
     h|\?)
@@ -99,6 +114,9 @@ do
       ;;
     c)
       SKIP_BREW_CASK=1
+      ;;
+    d)
+      SKIP_BREW_DRIVERS=1
       ;;
     m)
       SKIP_MAS=1
@@ -152,9 +170,6 @@ fi
 
 # PART 3 - Install brew cask apps
 if ! (( SKIP_BREW_CASK )) then
-  # Tap driver cask
-  brew tap homebrew/cask-drivers
-
   # Install from cask list
   while IFS= read -u 9 -r line; do
     brew_cask_install $line
@@ -163,7 +178,20 @@ else
   log_c "Skipping brew cask programs installation on request..."
 fi
 
-# PART 4 - Install MAS apps
+# PART 4 - Install brew drivers
+if ! (( SKIP_BREW_DRIVERS )) then
+  # Tap driver cask
+  brew tap homebrew/cask-drivers
+
+  # Install from cask list
+  while IFS= read -u 9 -r line; do
+    brew_driver_install $line
+  done 9< "list/brew_driver_programs.txt"
+else
+  log_d "Skipping brew driver programs installation on request..."
+fi
+
+# PART 5 - Install MAS apps
 if ! (( SKIP_MAS )) then
   # Warning about mas
   log_m "Starting installation of apps from the Mac App Store..."

@@ -15,6 +15,5 @@ skype
 steam
 keepingyouawake
 handbrake
-logitech-options
 bitwarden
 vlc

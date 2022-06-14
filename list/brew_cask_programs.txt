@@ -2,7 +2,6 @@ iterm2
 gitkraken
 visual-studio-code
 jetbrains-toolbox
-firefox
 blender
 transmit
 bettertouchtool

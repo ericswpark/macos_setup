@@ -8,6 +8,7 @@ local -i SHOW_HELP=0
 local -i SKIP_ESSENTIALS=0
 local -i SKIP_BREW=0
 local -i SKIP_BREW_CASK=0
+local -i ASK_BREW_CASK=0
 local -i SKIP_BREW_DRIVERS=0
 local -i SKIP_MAS=0
 
@@ -25,6 +26,7 @@ Purpose:    Completely set up a fresh macOS install with specified tools
             installed, the rest of the modules will fail.
   -b        Skip brew app installation
   -c        Skip brew cask app installation
+  -a        Ask for confirmation before installing each brew cask entry
   -d        Skip brew driver installation
   -m        Skip mas app installation
 EOFFOE
@@ -100,7 +102,7 @@ function mas_install {
 # --------
 
 # Check for flags
-while getopts "h?ebcdm" option
+while getopts "h?ebcadm" option
 do
   case "$option" in
     h|\?)
@@ -114,6 +116,9 @@ do
       ;;
     c)
       SKIP_BREW_CASK=1
+      ;;
+    a)
+      ASK_BREW_CASK=1
       ;;
     d)
       SKIP_BREW_DRIVERS=1
@@ -172,7 +177,16 @@ fi
 if ! (( SKIP_BREW_CASK )) then
   # Install from cask list
   while IFS= read -u 9 -r line; do
-    brew_cask_install $line
+    if (( ASK_BREW_CASK )) then
+        read -p "Do you want to install $line (y/n)?" choice
+        case "$choice" in
+            y|Y ) brew_cask_install $line;;
+            n|N ) ;;
+            * ) log_c "Invalid choice. We will not install $line.";;
+        esac
+    else
+        brew_cask_install $line
+    fi
   done 9< "list/brew_cask_programs.txt"
 else
   log_c "Skipping brew cask programs installation on request..."

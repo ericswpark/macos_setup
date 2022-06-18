@@ -7,3 +7,10 @@ tmux
 zsh-syntax-highlighting
 openjdk
 gnupg2
+coreutils
+carthage
+ffmpeg
+gnu-units
+htop
+hugo
+iperf3

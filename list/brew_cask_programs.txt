@@ -1,7 +1,6 @@
 appcleaner
 audacity
 bettertouchtool
-bitwarden
 blender
 calibre
 cmake

@@ -147,7 +147,7 @@ if (( SHOW_HELP )) then
   return
 fi
 
-# PART 1 - ESSENTIALS
+# Step: Essentials
 if ! (( SKIP_ESSENTIALS )) then
   # Install homebrew (if it is not already installed)
   if ! type brew; then
@@ -169,7 +169,7 @@ else
   log_e "Skipping essential install on request..."
 fi
 
-# PART 2 - Install brew apps
+# Step: Install brew apps
 if ! (( SKIP_BREW )) then
   while IFS= read -u 9 -r line; do
     brew_install $line
@@ -179,7 +179,7 @@ else
 fi
 
 
-# PART 3 - Install NVM
+# Step: Install NVM
 ff ! (( SKIP_NVM )) then
   # Install NVM (if it is not already installed)
   if ! type nvm; then
@@ -190,7 +190,7 @@ ff ! (( SKIP_NVM )) then
   fi
 fi
 
-# PART 4 - Install brew cask apps
+# Step: Install brew cask apps
 if ! (( SKIP_BREW_CASK )) then
   # Install from cask list
   while IFS= read -u 9 -r line; do
@@ -209,7 +209,7 @@ else
   log_c "Skipping brew cask programs installation on request..."
 fi
 
-# PART 5 - Install brew drivers
+# Step: Install brew drivers
 if ! (( SKIP_BREW_DRIVERS )) then
   # Tap driver cask
   brew tap homebrew/cask-drivers
@@ -222,7 +222,7 @@ else
   log_d "Skipping brew driver programs installation on request..."
 fi
 
-# PART 6 - Install MAS apps
+# Step: Install MAS apps
 if ! (( SKIP_MAS )) then
   # Warning about mas
   log_m "Starting installation of apps from the Mac App Store..."

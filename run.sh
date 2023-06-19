@@ -52,6 +52,12 @@ function log_b {
     log "BREW" $1
 }
 
+# FUNCTION: NVM logger
+# Usage log_n <log>
+function log_n {
+    log "NVM" $1
+}
+
 # FUNCTION: Brew cask logger
 # Usage log_c <log>
 function log_c {
@@ -183,10 +189,10 @@ fi
 ff ! (( SKIP_NVM )) then
   # Install NVM (if it is not already installed)
   if ! type nvm; then
-    log_e "Installing NVM..."
+    log_n "Installing NVM..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh)"
   else
-    log_e "NVM already seems to be installed. Skipping..."
+    log_n "NVM already seems to be installed. Skipping..."
   fi
 fi
 

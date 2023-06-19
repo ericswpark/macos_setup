@@ -7,6 +7,7 @@ set -e
 local -i SHOW_HELP=0
 local -i SKIP_ESSENTIALS=0
 local -i SKIP_BREW=0
+local -i SKIP_NVM=0
 local -i SKIP_BREW_CASK=0
 local -i ASK_BREW_CASK=0
 local -i SKIP_BREW_DRIVERS=0
@@ -25,6 +26,7 @@ Purpose:    Completely set up a fresh macOS install with specified tools
             wish to skip automatic detection of your SSH key. If brew is not
             installed, the rest of the modules will fail.
   -b        Skip brew app installation
+  -n        Skip NVM (Node Version Manager) installation
   -c        Skip brew cask app installation
   -a        Ask for confirmation before installing each brew cask entry
   -d        Skip brew driver installation
@@ -102,7 +104,7 @@ function mas_install {
 # --------
 
 # Check for flags
-while getopts "h?ebcadm" option
+while getopts "h?ebncadm" option
 do
   case "$option" in
     h|\?)
@@ -113,6 +115,9 @@ do
       ;;
     b)
       SKIP_BREW=1
+      ;;
+    n)
+      SKIP_NVM=1
       ;;
     c)
       SKIP_BREW_CASK=1
@@ -173,7 +178,19 @@ else
   log_b "Skipping brew programs installation on request..."
 fi
 
-# PART 3 - Install brew cask apps
+
+# PART 3 - Install NVM
+ff ! (( SKIP_NVM )) then
+  # Install NVM (if it is not already installed)
+  if ! type nvm; then
+    log_e "Installing NVM..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh)"
+  else
+    log_e "NVM already seems to be installed. Skipping..."
+  fi
+fi
+
+# PART 4 - Install brew cask apps
 if ! (( SKIP_BREW_CASK )) then
   # Install from cask list
   while IFS= read -u 9 -r line; do
@@ -192,7 +209,7 @@ else
   log_c "Skipping brew cask programs installation on request..."
 fi
 
-# PART 4 - Install brew drivers
+# PART 5 - Install brew drivers
 if ! (( SKIP_BREW_DRIVERS )) then
   # Tap driver cask
   brew tap homebrew/cask-drivers
@@ -205,7 +222,7 @@ else
   log_d "Skipping brew driver programs installation on request..."
 fi
 
-# PART 5 - Install MAS apps
+# PART 6 - Install MAS apps
 if ! (( SKIP_MAS )) then
   # Warning about mas
   log_m "Starting installation of apps from the Mac App Store..."

@@ -10,7 +10,6 @@ hugo
 iperf3
 mas
 mosh
-node
 openjdk
 tmux
 zsh-syntax-highlighting

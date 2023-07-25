@@ -8,9 +8,6 @@ local -i SHOW_HELP=0
 local -i SKIP_ESSENTIALS=0
 local -i SKIP_BREW=0
 local -i SKIP_NVM=0
-local -i SKIP_BREW_CASK=0
-local -i ASK_BREW_CASK=0
-local -i SKIP_MAS=0
 
 # FUNCTION: Usage display
 function displayUsage {
@@ -26,9 +23,6 @@ Purpose:    Completely set up a fresh macOS install with specified tools
             installed, the rest of the modules will fail.
   -b        Skip brew app installation
   -n        Skip NVM (Node Version Manager) installation
-  -c        Skip brew cask app installation
-  -a        Ask for confirmation before installing each brew cask entry
-  -m        Skip mas app installation
 EOFFOE
 }
 
@@ -56,45 +50,13 @@ function log_n {
     log "NVM" $1
 }
 
-# FUNCTION: Brew cask logger
-# Usage log_c <log>
-function log_c {
-    log "BREWCASK" $1
-}
-
-# FUNCTION: MAS logger
-# Usage log_m <log>
-function log_m {
-    log "MAS" $1
-}
-
-# FUNCTION: install apps from brew
-# Usage: brew_install <package_name>
-function brew_install {
-  log_b "Installing $1..."
-  brew install $1
-}
-
-# FUNCTION: install apps from brew cask
-# Usage: brew_cask_install <package_name>
-function brew_cask_install {
-  log_c "Installing $1..."
-  brew install --cask $1
-}
-
-# FUNCTION: install apps from mas
-# Usage: mas_install <app_id> <app_name (display only)>
-function mas_install {
-    log_m "Installing $2..."
-    mas install $1 &
-}
 
 # --------
 # | MAIN |
 # --------
 
 # Check for flags
-while getopts "h?ebncam" option
+while getopts "h?ebn" option
 do
   case "$option" in
     h|\?)
@@ -108,15 +70,6 @@ do
       ;;
     n)
       SKIP_NVM=1
-      ;;
-    c)
-      SKIP_BREW_CASK=1
-      ;;
-    a)
-      ASK_BREW_CASK=1
-      ;;
-    m)
-      SKIP_MAS=1
       ;;
     *)
       echo "Invalid flags specified."
@@ -156,11 +109,9 @@ else
   log_e "Skipping essential install on request..."
 fi
 
-# Step: Install brew apps
+# Step: Restore with brew bundle
 if ! (( SKIP_BREW )) then
-  while IFS= read -u 9 -r line; do
-    brew_install $line
-  done 9< "list/brew_programs.txt"
+  brew bundle install --file ./Brewfile
 else
   log_b "Skipping brew programs installation on request..."
 fi
@@ -176,46 +127,3 @@ ff ! (( SKIP_NVM )) then
     log_n "NVM already seems to be installed. Skipping..."
   fi
 fi
-
-# Step: Install brew cask apps
-if ! (( SKIP_BREW_CASK )) then
-  # Install from cask list
-  while IFS= read -u 9 -r line; do
-    if (( ASK_BREW_CASK )) then
-        read -p "Do you want to install $line (y/n)?" choice
-        case "$choice" in
-            y|Y ) brew_cask_install $line;;
-            n|N ) ;;
-            * ) log_c "Invalid choice. We will not install $line.";;
-        esac
-    else
-        brew_cask_install $line
-    fi
-  done 9< "list/brew_cask_programs.txt"
-else
-  log_c "Skipping brew cask programs installation on request..."
-fi
-
-# Step: Install MAS apps
-if ! (( SKIP_MAS )) then
-  # Warning about mas
-  log_m "Starting installation of apps from the Mac App Store..."
-  log_m "WARNING: If this is your first time downloading these apps, installation will fail because there will be no purchase history."
-  log_m "It is therefore recommended that you first download the apps through the App Store."
-  log_m "Subsequent script runs will automatically find and download those apps from your purchase history."
-
-  # Install mas apps
-  while IFS= read -u 9 -r line; do
-    mas_install $(echo $line | tr -d '\n')
-  done 9< "list/mas_programs.txt"
-
-  # Warn about background mas
-  log_m "Background app installation started!"
-  log_m "WARNING: mas is still installing apps in the background."
-  log_m "To see running processes, run ps."
-  log_m "To see download progress, go to the Launchpad."
-  log_m "It is recommended that you do not restart the computer while the commands are running."
-else
-  log_m "Skipping Mac App Store programs installation on request..."
-fi
-

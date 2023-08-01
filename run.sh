@@ -118,7 +118,7 @@ fi
 
 
 # Step: Install NVM
-ff ! (( SKIP_NVM )) then
+if ! (( SKIP_NVM )) then
   # Install NVM (if it is not already installed)
   if ! type nvm; then
     log_n "Installing NVM..."

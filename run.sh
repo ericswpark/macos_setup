@@ -122,6 +122,7 @@ fi
 
 # Step: Restore with brew bundle
 if ! (( SKIP_BREW )) then
+  log_b "Restoring from Homebrew bundle dump..."
   brew bundle install --file ./Brewfile
 else
   log_b "Skipping brew programs installation on request..."

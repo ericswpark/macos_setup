@@ -150,7 +150,7 @@ fi
 # Step: Install NVM
 if ! (( SKIP_NVM )) then
   # Install NVM (if it is not already installed)
-  if ! type nvm; then
+  if [[ ! -d ~/.nvm ]]; then
     log_n "Installing NVM..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh)"
   else

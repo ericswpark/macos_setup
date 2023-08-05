@@ -9,6 +9,7 @@ local -i SKIP_ESSENTIALS=0
 local -i SKIP_BREW=0
 local -i SKIP_OH_MY_ZSH=0
 local -i SKIP_NVM=0
+local -i SKIP_RUSTUP=0
 
 # FUNCTION: Usage display
 function displayUsage {
@@ -25,6 +26,7 @@ Purpose:    Completely set up a fresh macOS install with specified tools
   -b        Skip brew app installation
   -o        Skip Oh My Zsh installation
   -n        Skip NVM (Node Version Manager) installation
+  -r        Skip Rust(up) installation
 EOFFOE
 }
 
@@ -56,6 +58,12 @@ function log_o {
 # Usage log_n <log>
 function log_n {
     log "NVM" $1
+}
+
+# FUNCTION: Rustup logger
+# Usage log_r <log>
+function log_r {
+    log "RUSTUP" $1
 }
 
 
@@ -147,5 +155,16 @@ if ! (( SKIP_NVM )) then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh)"
   else
     log_n "NVM already seems to be installed. Skipping..."
+  fi
+fi
+
+# Step: Install Rustup
+if ! (( SKIP_RUSTUP )) then
+  # Install Rustup (if it is not already installed)
+  if ! type rustup; then
+    log_r "Installing Rustup..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  else
+    log_r "Rustup already seems to be installed. Skipping..."
   fi
 fi

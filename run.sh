@@ -120,7 +120,7 @@ if ! (( SKIP_ESSENTIALS )) then
   # Generate SSH keys (if not present)
   if [[ ! -a ~/.ssh/id_rsa ]]; then
     log_e "Generating SSH key..."
-    ssh-keygen -t ed25519
+    ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -q -N ""
   else
     log_e "SSH key found. Skipping..."
   fi

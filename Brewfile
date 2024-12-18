@@ -1,6 +1,5 @@
 tap "homebrew/autoupdate"
 tap "homebrew/bundle"
-tap "homebrew/cask"
 tap "homebrew/services"
 tap "macos-fuse-t/cask"
 brew "argyll-cms"

@@ -1,9 +1,5 @@
 # macos_setup
 
-## Archive notice
-
-Temporarily archived as I do not own a Mac laptop/desktop anymore.
-
 ## What does this script do?
 
 If you just run the script (`./run.sh`) without any parameters suppplied, it will:

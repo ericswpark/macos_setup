@@ -7,7 +7,6 @@ set -e
 local -i SHOW_HELP=0
 local -i SKIP_ESSENTIALS=0
 local -i SKIP_BREW=0
-local -i SKIP_OH_MY_ZSH=0
 local -i SKIP_NVM=0
 local -i SKIP_RUSTUP=0
 
@@ -24,7 +23,6 @@ Purpose:    Completely set up a fresh macOS install with specified tools
             wish to skip automatic detection of your SSH key. If brew is not
             installed, the rest of the modules will fail.
   -b        Skip brew app installation
-  -o        Skip Oh My Zsh installation
   -n        Skip NVM (Node Version Manager) installation
   -r        Skip Rust(up) installation
 EOFFOE
@@ -48,12 +46,6 @@ function log_b {
     log "BREW" $1
 }
 
-# FUNCTION: Oh My Zsh logger
-# Usage log_o <log>
-function log_o {
-    log "OHMYZSH" $1
-}
-
 # FUNCTION: NVM logger
 # Usage log_n <log>
 function log_n {
@@ -72,7 +64,7 @@ function log_r {
 # --------
 
 # Check for flags
-while getopts "h?ebon" option
+while getopts "h?ebn" option
 do
   case "$option" in
     h|\?)
@@ -83,9 +75,6 @@ do
       ;;
     b)
       SKIP_BREW=1
-      ;;
-    o)
-      SKIP_OH_MY_ZSH=1
       ;;
     n)
       SKIP_NVM=1
@@ -134,17 +123,6 @@ if ! (( SKIP_BREW )) then
   brew bundle install --file ./Brewfile
 else
   log_b "Skipping brew programs installation on request..."
-fi
-
-# Step: Install Oh My Zsh
-if ! (( SKIP_OH_MY_ZSH )) then
-  # Install Oh My Zsh (if it is not already installed)
-  if [[ ! -d ~/.oh-my-zsh ]]; then
-    log_o "Installing Oh My Zsh..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  else
-    log_o "Oh My Zsh already seems to be installed. Skipping..."
-  fi
 fi
 
 # Step: Install NVM

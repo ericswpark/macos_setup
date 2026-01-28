@@ -1,4 +1,3 @@
-tap "homebrew/autoupdate"
 tap "homebrew/bundle"
 tap "homebrew/services"
 tap "macos-fuse-t/cask"

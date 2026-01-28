@@ -77,6 +77,7 @@ cask "veracrypt"
 cask "via"
 cask "vlc"
 cask "wireshark"
+cask "zed"
 mas "AmorphousDiskMark", id: 1168254295
 mas "AutoMounter", id: 1160435653
 mas "BBEdit", id: 404009241

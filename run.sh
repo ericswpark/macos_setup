@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # If any part of this script fails, exit immediately
-set -euxo pipefail
+set -euo pipefail
 
 # Initialize variables
 local -i SHOW_HELP=0

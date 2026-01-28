@@ -1,4 +1,3 @@
-tap "homebrew/bundle"
 tap "macos-fuse-t/cask"
 brew "brightness"
 brew "btop"

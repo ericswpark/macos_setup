@@ -1,6 +1,5 @@
 tap "homebrew/bundle"
 tap "macos-fuse-t/cask"
-brew "argyll-cms"
 brew "brightness"
 brew "btop"
 brew "glib"

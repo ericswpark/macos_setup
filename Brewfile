@@ -70,6 +70,7 @@ cask "scroll-reverser"
 cask "signal"
 cask "steam"
 cask "syncthing"
+cask "tailscale-app"
 cask "tor-browser"
 cask "transmit"
 cask "utm"
@@ -102,7 +103,6 @@ mas "Pages", id: 409201541
 mas "Slack", id: 803453959
 mas "Speedtest", id: 1153157709
 mas "Table Tool", id: 1122008420
-mas "Tailscale", id: 1475387142
 mas "Telegram", id: 747648890
 mas "The Unarchiver", id: 425424353
 mas "WireGuard", id: 1451685025

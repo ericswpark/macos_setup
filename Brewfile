@@ -1,5 +1,6 @@
 brew "brightness"
 brew "btop"
+brew "cargo-binstall"
 brew "exiftool"
 brew "ffmpeg"
 brew "gh"

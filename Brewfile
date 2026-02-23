@@ -90,7 +90,7 @@ cask "utm"
 cask "veracrypt"
 cask "via"
 cask "vlc"
-cask "wireshark"
+cask "wireshark-app"
 cask "zed"
 mas "AmorphousDiskMark", id: 1168254295
 mas "AutoMounter", id: 1160435653

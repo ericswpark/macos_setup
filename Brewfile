@@ -98,6 +98,7 @@ mas "BBEdit", id: 404009241
 mas "Bitwarden", id: 1352778147
 mas "Compressor", id: 424390742
 mas "Final Cut Pro", id: 424389933
+mas "GeoTag", id: 1465180184
 mas "Hidden Bar", id: 1452453066
 mas "Jump Desktop", id: 524141863
 mas "KakaoTalk", id: 869223134
@@ -111,7 +112,6 @@ mas "Microsoft Word", id: 462054704
 mas "Motion", id: 434290957
 mas "Numbers", id: 409203825
 mas "OneDrive", id: 823766827
-mas "org.snafu.GeoTag", id: 1465180184
 mas "Pages", id: 409201541
 mas "Slack", id: 803453959
 mas "Speedtest", id: 1153157709

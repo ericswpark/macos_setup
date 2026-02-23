@@ -32,3 +32,7 @@ Purpose:    Completely set up a fresh macOS install with specified tools
 ### `mas` won't install apps
 
 Make sure you have the app in your purchase history. `mas` won't install apps you don't own.
+
+### How do I backup my own `Brewfile`?
+
+Run `brew bundle dump`.

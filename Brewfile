@@ -108,7 +108,6 @@ mas "Logic Pro", id: 634148309
 mas "Microsoft Excel", id: 462058435
 mas "Microsoft Outlook", id: 985367838
 mas "Microsoft PowerPoint", id: 462062816
-mas "Microsoft Remote Desktop", id: 1295203466
 mas "Microsoft Word", id: 462054704
 mas "Motion", id: 434290957
 mas "Numbers", id: 409203825
@@ -119,6 +118,7 @@ mas "Speedtest", id: 1153157709
 mas "Table Tool", id: 1122008420
 mas "Telegram", id: 747648890
 mas "The Unarchiver", id: 425424353
+mas "Windows App", id: 1295203466
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
 cargo "espflash"

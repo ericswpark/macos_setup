@@ -115,7 +115,6 @@ mas "OneDrive", id: 823766827
 mas "Pages", id: 409201541
 mas "Slack", id: 803453959
 mas "Speedtest", id: 1153157709
-mas "Table Tool", id: 1122008420
 mas "Telegram", id: 747648890
 mas "The Unarchiver", id: 425424353
 mas "Windows App", id: 1295203466

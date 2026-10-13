@@ -104,7 +104,6 @@ mas "Bitwarden", id: 1352778147
 mas "Compressor", id: 424390742
 mas "Final Cut Pro", id: 424389933
 mas "GeoTag", id: 1465180184
-mas "Hidden Bar", id: 1452453066
 mas "Jump Desktop", id: 524141863
 mas "KakaoTalk", id: 869223134
 mas "Keynote", id: 409183694
